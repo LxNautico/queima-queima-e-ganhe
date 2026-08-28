@@ -13,10 +13,12 @@
   const publish = () => {
     if (applying || !window.qqeRoom || window.qqeRoom.role !== 'player') return;
     const state = JSON.stringify(snap());
-    if (state !== previous) { previous = state; window.qqeRoom.sendState(JSON.parse(state)); }
+    if (state !== previous) { previous = state; const board=JSON.parse(state); window.qqeRoom.sendState(board); window.qqeRoom.client.from('room_games').upsert({room_code:window.qqeRoom.room,board,phase:'turn',updated_at:new Date().toISOString()}); }
   };
   new MutationObserver(publish).observe(document.querySelector('.game'), {subtree:true,childList:true,characterData:true,attributes:true});
-  setInterval(()=>{if(window.qqeRoom?.role==='viewer'){document.querySelector('#flick').disabled=true;document.querySelector('#reset').disabled=true}},300);\n  window.addEventListener('qqe-remote-state', ({detail:s}) => {
+  setInterval(()=>{if(window.qqeRoom?.role==='viewer'){document.querySelector('#flick').disabled=true;document.querySelector('#reset').disabled=true}},300);
+  window.addEventListener('qqe-game-record', ({detail})=>{if(detail?.board)window.dispatchEvent(new CustomEvent('qqe-remote-state',{detail:detail.board}))});
+  window.addEventListener('qqe-remote-state', ({detail:s}) => {
     applying = true;
     document.querySelector('#board').className=s.board;
     document.querySelector('#slots').innerHTML=s.slots;
