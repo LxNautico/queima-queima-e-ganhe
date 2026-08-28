@@ -15,19 +15,22 @@
     const people = Object.values(channel.presenceState()).flat();
     $('#roomPeople').textContent = `Sala ${channel.topic.replace('qqe:','')} · ${people.length} online: ${people.map(p=>`${p.name} (${p.role==='player'?'jogador':'assistindo'})`).join(', ')}`;
   }
-  async function refreshRooms(){const {data,error}=await client.from('game_rooms').select('*').order('updated_at',{ascending:false});if(error){$('#roomGrid').textContent='Não foi possível listar salas: '+error.message;return}$('#roomGrid').innerHTML=data.length?data.map(r=>`<div class="roomCard"><b>Sala ${r.code}</b><br>🎮 ${(r.active_players||[]).length} jogando · 👁 ${(r.spectators||[]).length} assistindo<br><button data-room="${r.code}">Entrar</button> ${(r.active_players||[]).map(n=>`<button data-challenge="${r.code}|${n}">Desafiar ${n}</button>`).join('')}</div>`).join(''):'Nenhuma sala aberta no momento.';[...panel.querySelectorAll('[data-challenge]')].forEach(b=>b.onclick=()=>{const [code,target]=b.dataset.challenge.split('|');requestChallenge(code,target)});[...panel.querySelectorAll('[data-room]')].forEach(b=>b.onclick=()=>{$('#roomCode').value=b.dataset.room;connect(b.dataset.room)})}async function registerRoom(room){const name=$('#roomName').value.trim(),role=$('#roomRole').value;const {data}=await client.from('game_rooms').select('*').eq('code',room).maybeSingle();let players=data?.active_players||[],viewers=data?.spectators||[];if(role==='player')players=[...new Set([...players,name])];else viewers=[...new Set([...viewers,name])];await client.from('game_rooms').upsert({code:room,host_name:data?.host_name||name,active_players:players,spectators:viewers,status:'waiting',updated_at:new Date().toISOString()});refreshRooms()}\n  function connect(room){currentRoom=room;
+  async function refreshRooms(){const {data,error}=await client.from('game_rooms').select('*').order('updated_at',{ascending:false});if(error){$('#roomGrid').textContent='Não foi possível listar salas: '+error.message;return}$('#roomGrid').innerHTML=data.length?data.map(r=>`<div class="roomCard"><b>Sala ${r.code}</b><br>🎮 ${(r.active_players||[]).length} jogando · 👁 ${(r.spectators||[]).length} assistindo<br><button data-room="${r.code}">Entrar</button> ${(r.active_players||[]).map(n=>`<button data-challenge="${r.code}|${n}">Desafiar ${n}</button>`).join('')}</div>`).join(''):'Nenhuma sala aberta no momento.';[...panel.querySelectorAll('[data-challenge]')].forEach(b=>b.onclick=()=>{const [code,target]=b.dataset.challenge.split('|');requestChallenge(code,target)});[...panel.querySelectorAll('[data-room]')].forEach(b=>b.onclick=()=>{$('#roomCode').value=b.dataset.room;connect(b.dataset.room)})}async function registerRoom(room){const name=$('#roomName').value.trim(),role=$('#roomRole').value;const {data}=await client.from('game_rooms').select('*').eq('code',room).maybeSingle();let players=data?.active_players||[],viewers=data?.spectators||[];if(role==='player')players=[...new Set([...players,name])];else viewers=[...new Set([...viewers,name])];await client.from('game_rooms').upsert({code:room,host_name:data?.host_name||name,active_players:players,spectators:viewers,status:'waiting',updated_at:new Date().toISOString()});refreshRooms()}
+  function connect(room){currentRoom=room;
     if(!$('#roomName').value.trim()) return $('#roomPeople').textContent='Informe seu nome para entrar.';
     channel?.unsubscribe();
     channel = client.channel(`qqe:${room}`, {config:{presence:{key:crypto.randomUUID()},broadcast:{self:false}}});
     channel.on('presence',{event:'sync'},renderPeople).on('broadcast',{event:'game-state'},({payload})=>window.dispatchEvent(new CustomEvent('qqe-remote-state',{detail:payload}))).subscribe(async status=>{
       if(status==='SUBSCRIBED'){
-        await registerRoom(room);\n        await channel.track({name:$('#roomName').value.trim(),role:$('#roomRole').value});
+        await registerRoom(room);
+        await channel.track({name:$('#roomName').value.trim(),role:$('#roomRole').value});
         $('#roomPeople').textContent=`Sala ${room} conectada. Compartilhe este código.`;
         window.qqeRoom={sendState:data=>channel.send({type:'broadcast',event:'game-state',payload:data}),role:$('#roomRole').value};
       }
     });
   }
-  client.channel('room-directory').on('postgres_changes',{event:'*',schema:'public',table:'game_rooms'},()=>{refreshRooms();showChallenges()}).subscribe();refreshRooms();\n  $('#createRoom').onclick=()=>{const room=code();$('#roomCode').value=room;connect(room)};
+  client.channel('room-directory').on('postgres_changes',{event:'*',schema:'public',table:'game_rooms'},()=>{refreshRooms();showChallenges()}).subscribe();refreshRooms();
+  $('#createRoom').onclick=()=>{const room=code();$('#roomCode').value=room;connect(room)};
   $('#joinRoom').onclick=()=>{const room=$('#roomCode').value.trim().toUpperCase();if(room)connect(room);else $('#roomPeople').textContent='Digite o código da sala.'};
 })();
 
