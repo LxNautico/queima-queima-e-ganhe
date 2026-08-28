@@ -25,7 +25,7 @@
         await registerRoom(room);
         await channel.track({name:$('#roomName').value.trim(),role:$('#roomRole').value});
         $('#roomPeople').textContent=`Sala ${room} conectada. Compartilhe este código.`;
-        window.qqeRoom={sendState:data=>channel.send({type:'broadcast',event:'game-state',payload:data}),role:$('#roomRole').value};
+        window.qqeRoom={sendState:data=>channel.send({type:'broadcast',event:'game-state',payload:data}),role:$('#roomRole').value,room,client};client.from('room_games').select('*').eq('room_code',room).maybeSingle().then(({data})=>{if(!data)client.from('room_games').insert({room_code:room,players:[],phase:'waiting'})});client.channel(`game-db:${room}`).on('postgres_changes',{event:'*',schema:'public',table:'room_games',filter:`room_code=eq.${room}`},payload=>window.dispatchEvent(new CustomEvent('qqe-game-record',{detail:payload.new}))).subscribe();
       }
     });
   }
