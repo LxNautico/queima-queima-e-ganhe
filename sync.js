@@ -8,7 +8,7 @@
     score: document.querySelector('#score').textContent,
     turn: document.querySelector('#turn').textContent,
     status: document.querySelector('#status').textContent,
-    precision: document.querySelector('#precision').textContent
+    precision: document.querySelector('#precision').textContent,config:{difficulty:document.querySelector('#difficulty').value,floor:document.querySelector('#floor').value,mode:document.querySelector('#mode').value,players:document.querySelector('#playerCount').value}
   });
   const publish = () => {
     if (applying || !window.qqeRoom || window.qqeRoom.role !== 'player') return;
@@ -17,7 +17,7 @@
   };
   new MutationObserver(publish).observe(document.querySelector('.game'), {subtree:true,childList:true,characterData:true,attributes:true});
   setInterval(()=>{if(window.qqeRoom&&(window.qqeRoom.role==='viewer'||window.qqeRoom.turnAllowed===false)){document.querySelector('#flick').disabled=true;document.querySelector('#reset').disabled=true}},300);
-  window.addEventListener('qqe-game-record', ({detail})=>{if(detail?.players){window.qqeRoom.turnAllowed=window.qqeRoom.role==='player'&&detail.players[detail.current_player]===window.qqeRoom.playerName;const count=document.querySelector('#playerCount');const mode=document.querySelector('#mode');if(count&&detail.players.length>=2){mode.value='duel';count.value=Math.min(4,detail.players.length);count.dispatchEvent(new Event('change'));[...document.querySelectorAll('#playerInputs input')].forEach((input,i)=>input.value=detail.players[i]||'');document.querySelector('#playerLabel').textContent=detail.players[detail.current_player]||''}}if(detail?.board)window.dispatchEvent(new CustomEvent('qqe-remote-state',{detail:detail.board}))});
+  window.addEventListener('qqe-game-record', ({detail})=>{if(detail?.players){window.qqeRoom.players=detail.players;window.qqeRoom.turnAllowed=window.qqeRoom.role==='player'&&detail.players[detail.current_player]===window.qqeRoom.playerName;const count=document.querySelector('#playerCount');const mode=document.querySelector('#mode');if(count&&detail.players.length>=2){mode.value='duel';count.value=Math.min(4,detail.players.length);count.dispatchEvent(new Event('change'));[...document.querySelectorAll('#playerInputs input')].forEach((input,i)=>input.value=detail.players[i]||'');document.querySelector('#playerLabel').textContent=detail.players[detail.current_player]||''}}if(detail?.board?.config){for(const [key,value] of Object.entries(detail.board.config)){const el=document.querySelector('#'+(key==='players'?'playerCount':key));if(el)el.value=value}}if(detail?.board)window.dispatchEvent(new CustomEvent('qqe-remote-state',{detail:detail.board}))});
   window.addEventListener('qqe-remote-state', ({detail:s}) => {
     applying = true;
     document.querySelector('#board').className=s.board;
