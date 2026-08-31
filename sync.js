@@ -1,6 +1,10 @@
 // Espelha o estado visual da partida para quem está na mesma sala.
 (() => {
   let applying = false, previous = '',lastScore='';
+  const spring=document.createElement('div');spring.id='spring';spring.innerHTML='<span>〰〰〰</span>';document.querySelector('#board').append(spring);
+  const style=document.createElement('style');style.textContent='#spring{position:absolute;z-index:5;left:2px;top:50%;transform:translateY(-50%) scaleX(1);transform-origin:left;color:#d9e8ee;font:900 32px/1 monospace;text-shadow:1px 2px #243746;transition:transform .08s}#spring.launch{animation:springHit .22s ease-out}@keyframes springHit{0%{transform:translateY(-50%) scaleX(.25)}55%{transform:translate(42px,-50%) scaleX(1.2)}100%{transform:translateY(-50%) scaleX(1)}}';document.head.append(style);
+  const springTimer=setInterval(()=>{const fill=document.querySelector('#fill');const pct=parseFloat(fill?.style.width)||0;spring.style.transform=`translateY(-50%) scaleX(${Math.max(.18,1-pct/120)})`},40);
+  document.querySelector('#flick').addEventListener('pointerup',()=>{spring.classList.add('launch');setTimeout(()=>spring.classList.remove('launch'),230)});
   const snap = () => ({
     board: document.querySelector('#board').className,
     slots: document.querySelector('#slots').innerHTML,
