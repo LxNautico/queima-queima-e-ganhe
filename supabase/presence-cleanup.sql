@@ -9,4 +9,3 @@ returns void language sql as $$
   delete from public.game_rooms
   where updated_at < now() - interval '12 hours';
 $$;
-

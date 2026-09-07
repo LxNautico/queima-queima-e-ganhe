@@ -16,4 +16,3 @@ create policy "partidas visíveis" on public.room_games for select using (true);
 create policy "partidas criáveis" on public.room_games for insert with check (true);
 create policy "partidas atualizáveis" on public.room_games for update using (true) with check (true);
 alter publication supabase_realtime add table public.room_games;
-
