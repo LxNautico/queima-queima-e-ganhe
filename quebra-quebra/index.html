@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>Quebra-Quebra: Fogo Cruzado</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="campaign.css">
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <p class="eyebrow">UNIVERSO QUEIMA-QUEIMA</p>
+      <h1>Quebra-Quebra <span>Fogo Cruzado</span></h1>
+      <p>Defenda o minicanhão, destrua as pedras na ordem e sobreviva às ondas.</p>
+    </header>
+
+    <section class="game-shell">
+      <div class="topbar">
+        <label>Dificuldade
+          <select id="difficulty">
+            <option value="easy">Fácil</option>
+            <option value="medium">Médio</option>
+            <option value="hard">Difícil</option>
+          </select>
+        </label>
+        <button id="start">Iniciar defesa</button>
+        <button id="sound" aria-pressed="true">🔊 Som</button>
+      </div>
+
+      <div class="hud" aria-live="polite">
+        <div><small>PONTOS</small><strong id="score">0</strong></div>
+        <div><small>PRECISÃO</small><strong id="accuracy">100%</strong></div>
+        <div><small>COMBO</small><strong id="combo">x1</strong></div>
+        <div><small>FASE</small><strong id="stage">1/100</strong></div>
+        <div><small>TEMPO</small><strong id="stageTime">25s</strong></div>
+        <div class="health"><small>ENERGIA</small><strong id="health">♥ ♥ ♥</strong></div>
+      </div>
+
+      <div class="arena-wrap">
+        <div class="scene-label"><small id="sectorName">SETOR 1</small><b id="sceneName">Bancada do Inventor</b></div>
+        <canvas id="arena" width="960" height="500" aria-label="Arena de defesa"></canvas>
+        <div id="announcement">Escolha a dificuldade e inicie a defesa.</div>
+      </div>
+
+      <div class="threat-meter">
+        <span>Ritmo da onda</span>
+        <div><i id="threatFill"></i></div>
+        <b id="phase">Preparação</b>
+      </div>
+      <div class="stage-progress" aria-label="Progresso da fase">
+        <i id="stageProgress"></i>
+      </div>
+
+      <div class="controls">
+        <div class="move-controls" aria-label="Mover canhão">
+          <button id="up" aria-label="Mover para cima">▲</button>
+          <button id="down" aria-label="Mover para baixo">▼</button>
+        </div>
+        <button id="fire">FIRE <small>ESPAÇO</small></button>
+      </div>
+      <p class="tip">Use ↑ e ↓ ou arraste o canhão. Toque ou segure FIRE para disparar.</p>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+.stage-progress {
+  height: 8px;
+  overflow: hidden;
+  margin: -5px 3px 12px;
+  border-radius: 20px;
+  background: #07121b;
+  box-shadow: inset 0 0 0 1px #4f6d7c;
+}
+.stage-progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #4dbf83, #f0c34b);
+  transition: width .15s;
+}
+.game-shell.stage-clear .arena-wrap {
+  box-shadow: inset 0 0 35px #60d39488, 0 0 20px #60d39455;
+}
+.game-shell.stage-clear #announcement { background: #276c4c; }
+.game-shell.game-over #announcement { background: #8f2923; }
+.scene-label {
+  position: absolute;
+  z-index: 2;
+  left: 13px;
+  bottom: 11px;
+  display: grid;
+  padding: 6px 10px;
+  border: 1px solid #ffffff30;
+  border-radius: 8px;
+  background: #07131dcc;
+  color: #fff;
+  pointer-events: none;
+}
+.scene-label small { color: #ffc34d; font-size: .57rem; font-weight: 900; letter-spacing: .15em; }
+.scene-label b { margin-top: 2px; font: 700 .78rem Georgia; }
