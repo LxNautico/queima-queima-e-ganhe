@@ -37,10 +37,12 @@
         <div class="health"><small>ENERGIA</small><strong id="health">♥ ♥ ♥</strong></div>
       </div>
 
-      <div class="arena-wrap">
+      <div class="arena-info">
         <div class="scene-label"><small id="sectorName">SETOR 1</small><b id="sceneName">Bancada do Inventor</b></div>
-        <canvas id="arena" width="960" height="500" aria-label="Arena de defesa"></canvas>
         <div id="announcement">Escolha a dificuldade e inicie a defesa.</div>
+      </div>
+      <div class="arena-wrap">
+        <canvas id="arena" width="960" height="500" aria-label="Arena de defesa"></canvas>
       </div>
 
       <div class="threat-meter">
@@ -59,6 +61,27 @@
         </div>
         <button id="fire">FIRE <small>ESPAÇO</small></button>
       </div>
+      <section id="stageResult" class="stage-result" hidden aria-labelledby="resultTitle">
+        <div class="result-card">
+          <small id="resultSector">FASE CONCLUÍDA</small>
+          <h2 id="resultTitle">Defesa concluída!</h2>
+          <div id="resultMedal" class="result-medal">🥇</div>
+          <div class="result-grid">
+            <span>Pontos da fase <b id="resultPoints">0</b></span>
+            <span>Precisão <b id="resultAccuracy">0%</b></span>
+            <span>Pedras destruídas <b id="resultDestroyed">0</b></span>
+            <span>Maior combo <b id="resultCombo">x1</b></span>
+            <span>Vidas restantes <b id="resultHealth">3</b></span>
+            <span>Bônus <b id="resultBonus">0</b></span>
+          </div>
+          <p id="resultMessage"></p>
+          <div class="result-actions">
+            <button id="nextStage">Próxima fase</button>
+            <button id="retryStage">Repetir fase</button>
+            <button id="pauseCampaign">Pausar campanha</button>
+          </div>
+        </div>
+      </section>
       <p class="tip">Use ↑ e ↓ ou arraste o canhão. Toque ou segure FIRE para disparar.</p>
     </section>
   </main>
