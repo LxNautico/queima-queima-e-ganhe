@@ -210,15 +210,14 @@ if (!document.querySelector('script[data-qqe-coach]')) {
   if (document.querySelector('.creator-credit')) return;
   const credit = document.createElement('footer');
   credit.className = 'creator-credit';
-  credit.innerHTML = `© 2026 ${author} · <a href="https://github.com/LxNautico" rel="author">LxNautico</a> · Todos os direitos reservados.`;
+  credit.innerHTML = `© 2026 ${author} · <a href="https://github.com/LxNautico" rel="author">LxNautico</a> · Todos os direitos reservados.<br><a href="./privacidade.html">Privacidade</a> · <a href="./termos.html">Termos</a> · <a href="./contato.html">Contato</a>`;
   Object.assign(credit.style, {
     margin: '24px 0 6px',
     textAlign: 'center',
     color: '#6c5140',
     fontSize: '.72rem'
   });
-  const link = credit.querySelector('a');
-  link.style.color = '#8b3b28';
+  credit.querySelectorAll('a').forEach(link => link.style.color = '#8b3b28');
   document.querySelector('main')?.append(credit);
 
   if (!document.querySelector('.hub-link')) {
