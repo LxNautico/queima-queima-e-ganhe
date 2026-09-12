@@ -6,6 +6,10 @@
   <meta name="author" content="Alex Alexandre Guedes Ramos">
   <meta name="copyright" content="Copyright © 2026 Alex Alexandre Guedes Ramos. Todos os direitos reservados.">
   <meta name="google-adsense-account" content="ca-pub-7293472071055820">
+  <meta name="theme-color" content="#172c3e">
+  <meta name="application-name" content="Universo Queima-Queima">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/universo-queima-queima.svg" type="image/svg+xml">
   <title>Universo Queima-Queima</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7293472071055820" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -14,6 +18,7 @@
   </style>
   <style>
     .support{margin:28px auto 0;padding:22px;border:1px solid #d18a39;border-radius:18px;background:#0d2130;text-align:center}.support h2{margin:0 0 6px;font:700 1.45rem Georgia}.support p{margin:7px auto 16px;color:#bfd0da}.support-button,.copy-pix,.close-pix{cursor:pointer;border:0;border-radius:10px;padding:12px 18px;font-weight:900}.support-button,.copy-pix{background:linear-gradient(#ffd163,#e6a52f);box-shadow:0 4px #8d5b18;color:#24170a}.pix-dialog{width:min(520px,calc(100% - 24px));padding:0;border:2px solid #d18a39;border-radius:20px;background:#102536;color:var(--cream);box-shadow:0 20px 70px #000}.pix-dialog::backdrop{background:#020a10d9}.pix-content{padding:25px;text-align:center}.pix-content h2{margin:0 0 8px;font:700 1.8rem Georgia}.pix-content>p{color:#c9d8df;line-height:1.45}.pix-qr{width:246px;min-height:246px;display:grid;place-items:center;margin:18px auto;padding:8px;border-radius:13px;background:#fff;color:#172c3e;font-size:.75rem}.pix-qr img,.pix-qr canvas{max-width:230px;height:auto}.pix-code{width:100%;height:74px;resize:none;padding:9px;border:1px solid #7692a1;border-radius:8px;background:#071722;color:#dbe8ee;font-size:.68rem}.pix-actions{display:flex;justify-content:center;gap:9px;margin-top:13px;flex-wrap:wrap}.close-pix{border:1px solid #7992a0;background:#17394d;color:#fff}.copy-status{min-height:1.2em;margin:10px 0 0!important;color:#79e0a2!important;font-weight:bold}
+    .install-area{margin:0 auto 24px;text-align:center}.install-app{cursor:pointer;padding:10px 16px;border:1px solid #70cce9;border-radius:10px;background:#12394e;color:#e7f8ff;font-weight:900}.install-app[hidden],.install-help[hidden]{display:none}.install-help{margin:9px auto 0;color:#bcd0da;font-size:.78rem}
   </style>
 </head>
 <body>
@@ -23,6 +28,10 @@
       <h1 class="brand">Universo Queima-Queima <span>DOIS JOGOS · UMA SÓ ARENA</span></h1>
       <p class="lead">Teste sua precisão no tabuleiro ou proteja o minicanhão em uma campanha de fogo cruzado.</p>
     </header>
+    <section class="install-area" aria-label="Instalação do aplicativo">
+      <button class="install-app" id="installApp" type="button" hidden>📲 Instalar aplicativo</button>
+      <p class="install-help" id="installHelp" hidden>No celular, abra o menu do navegador e escolha “Adicionar à tela inicial” ou “Instalar aplicativo”.</p>
+    </section>
     <section class="games" aria-label="Jogos disponíveis">
       <article class="card flick">
         <div class="icon" aria-hidden="true">🔥</div><div class="tag">PRECISÃO · ESTRATÉGIA</div>
@@ -71,5 +80,6 @@
       document.querySelector('#copyPix').onclick=async()=>{try{await navigator.clipboard.writeText(code.value)}catch{code.select();document.execCommand('copy');getSelection()?.removeAllRanges()}status.textContent='Código Pix copiado! Abra o aplicativo do seu banco.'};
     });
   </script>
+  <script src="./pwa.js"></script>
 </body>
 </html>

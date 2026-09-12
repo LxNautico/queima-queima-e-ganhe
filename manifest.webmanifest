@@ -1,0 +1,23 @@
+{
+  "id": "/",
+  "name": "Universo Queima-Queima",
+  "short_name": "Queima-Queima",
+  "description": "Queima-Queima e Ganhe e Quebra-Quebra: Fogo Cruzado em uma só arena.",
+  "lang": "pt-BR",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#081521",
+  "theme_color": "#172c3e",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {"src":"/icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"/icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+  ],
+  "shortcuts": [
+    {"name":"Queima-Queima e Ganhe","short_name":"Queima-Queima","url":"/QQeGanhe!.html?source=pwa","icons":[{"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml"}]},
+    {"name":"Quebra-Quebra: Fogo Cruzado","short_name":"Quebra-Quebra","url":"/quebra-quebra/index.html?source=pwa","icons":[{"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml"}]}
+  ]
+}
