@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.lxnautico.universoqueimaqueima",
+      "sha256_cert_fingerprints": [
+        "84:7C:29:30:08:1E:B1:00:EF:31:19:4C:4B:5D:BE:BD:E2:E9:17:CE:ED:38:35:CE:80:D2:30:AE:4E:5C:56:FD"
+      ]
+    }
+  }
+]
