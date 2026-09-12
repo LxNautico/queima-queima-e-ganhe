@@ -2,7 +2,7 @@
   const KEY = 'qqeBalanceStatsV1';
   const floorNames = { wood: '🪵 Madeira', glass: '💎 Vidro', rubber: '⬛ Borracha' };
   const empty = () => ({
-    launches: 0, burns: 0, hits100: 0, points: 0,
+    launches: 0, burns: 0, returnBurns: 0, hits100: 0, points: 0,
     chargeTotal: 0, charge100Total: 0, boostTotal: 0,
     timeTotal: 0, distanceTotal: 0, current100Streak: 0, best100Streak: 0
   });
@@ -46,6 +46,7 @@
       card.innerHTML = `<h3>${name}</h3><dl>
         <dt>Lançamentos</dt><dd>${item.launches}</dd>
         <dt>Queimas válidas</dt><dd>${item.burns} · ${percent(item.burns, item.launches)}</dd>
+        <dt>Retornos queimados</dt><dd>${item.returnBurns || 0} · ${percent(item.returnBurns || 0, item.launches)}</dd>
         <dt>Acertos na faixa 100</dt><dd>${item.hits100}</dd>
         <dt>Precisão geral em 100</dt><dd class="accuracy100">${percent(item.hits100, item.launches)}</dd>
         <dt>Precisão em 100 após queima</dt><dd>${percent(item.hits100, item.burns)}</dd>
@@ -93,8 +94,10 @@
     const metricsText = document.querySelector('#metrics')?.textContent || '';
     const zone = Number(precisionText.match(/faixa\s+(\d+)/i)?.[1]) || 0;
     const rawBand = zone ? Number(launchValues[zone - 1]) || 0 : 0;
-    const reachedWall = !/INVÁLIDO/i.test(precisionText);
-    const hit100 = reachedWall && rawBand === 100;
+    const returnBurned = /QUEIMADO/i.test(precisionText);
+    const reachedWall = returnBurned || !/INVÁLIDO/i.test(precisionText);
+    const validBurn = reachedWall && !returnBurned;
+    const hit100 = validBurn && rawBand === 100;
     const points = Number(precisionText.match(/—\s*(\d+)\s+pontos/i)?.[1]) || 0;
     const floor = launchFloor;
     const eventKey = [floor, precisionText, document.querySelector('#turn').textContent, state.score].join('|');
@@ -104,7 +107,8 @@
 
     const item = stats[floor] || empty();
     item.launches++;
-    item.burns += reachedWall ? 1 : 0;
+    item.burns += validBurn ? 1 : 0;
+    item.returnBurns = (item.returnBurns || 0) + (returnBurned ? 1 : 0);
     item.hits100 += hit100 ? 1 : 0;
     item.points += points;
     item.chargeTotal += lastCharge;
@@ -138,4 +142,52 @@ if (!document.querySelector('script[data-qqe-community]')) {
   communityScript.src = 'community.js?v=20260909-1';
   communityScript.dataset.qqeCommunity = 'true';
   document.body.append(communityScript);
+}
+
+// Carrega o modo de progressão do Circuito Queima-Queima.
+if (!document.querySelector('script[data-qqe-circuit]')) {
+  const circuitScript = document.createElement('script');
+  circuitScript.src = 'circuit.js?v=20260912-1';
+  circuitScript.dataset.qqeCircuit = 'true';
+  document.body.append(circuitScript);
+}
+
+// Carrega o rastro e a avaliação técnica de cada lançamento.
+if (!document.querySelector('script[data-qqe-shot-feedback]')) {
+  const feedbackScript = document.createElement('script');
+  feedbackScript.src = 'shot-feedback.js?v=20260912-1';
+  feedbackScript.dataset.qqeShotFeedback = 'true';
+  document.body.append(feedbackScript);
+}
+
+// Carrega medalhas, brasas e recompensas cosméticas.
+if (!document.querySelector('script[data-qqe-achievements]')) {
+  const achievementScript = document.createElement('script');
+  achievementScript.src = 'achievements.js?v=20260912-1';
+  achievementScript.dataset.qqeAchievements = 'true';
+  document.body.append(achievementScript);
+}
+
+// Carrega os adversários virtuais para partidas individuais.
+if (!document.querySelector('script[data-qqe-rival]')) {
+  const rivalScript = document.createElement('script');
+  rivalScript.src = 'rival.js?v=20260912-1';
+  rivalScript.dataset.qqeRival = 'true';
+  document.body.append(rivalScript);
+}
+
+// Carrega rodadas surpresa nos modos individuais.
+if (!document.querySelector('script[data-qqe-events]')) {
+  const eventScript = document.createElement('script');
+  eventScript.src = 'events.js?v=20260912-1';
+  eventScript.dataset.qqeEvents = 'true';
+  document.body.append(eventScript);
+}
+
+// Carrega o Técnico QQ, assistente local de dicas e ajuda.
+if (!document.querySelector('script[data-qqe-coach]')) {
+  const coachScript = document.createElement('script');
+  coachScript.src = 'coach.js?v=20260912-1';
+  coachScript.dataset.qqeCoach = 'true';
+  document.body.append(coachScript);
 }

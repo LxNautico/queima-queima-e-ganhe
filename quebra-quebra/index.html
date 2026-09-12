@@ -17,6 +17,14 @@
 
     <section class="game-shell">
       <div class="topbar">
+        <label>Modo
+          <select id="gameMode">
+            <option value="campaign">Campanha</option>
+            <option value="survival">Sobrevivência</option>
+            <option value="timed">Partida por tempo</option>
+            <option value="training">Treino livre</option>
+          </select>
+        </label>
         <label>Dificuldade
           <select id="difficulty">
             <option value="easy">Fácil</option>
@@ -24,8 +32,16 @@
             <option value="hard">Difícil</option>
           </select>
         </label>
+        <label id="arcadeSceneLabel" hidden>Tela
+          <select id="arcadeScene" aria-label="Tela visual dos modos alternativos"></select>
+        </label>
         <button id="start">Iniciar defesa</button>
         <button id="sound" aria-pressed="true">🔊 Som</button>
+        <button id="openTutorial">? Tutorial</button>
+      </div>
+      <div id="survivalActions" class="survival-actions" hidden>
+        <button id="pauseSurvival">Pausar e continuar depois</button>
+        <button id="stopSurvival">Encerrar sobrevivência</button>
       </div>
 
       <div class="hud" aria-live="polite">
@@ -41,26 +57,28 @@
         <div class="scene-label"><small id="sectorName">SETOR 1</small><b id="sceneName">Bancada do Inventor</b></div>
         <div id="announcement">Escolha a dificuldade e inicie a defesa.</div>
       </div>
-      <div class="arena-wrap">
-        <canvas id="arena" width="960" height="500" aria-label="Arena de defesa"></canvas>
-      </div>
-
-      <div class="threat-meter">
-        <span>Ritmo da onda</span>
-        <div><i id="threatFill"></i></div>
-        <b id="phase">Preparação</b>
-      </div>
-      <div class="stage-progress" aria-label="Progresso da fase">
-        <i id="stageProgress"></i>
-      </div>
-
-      <div class="controls">
-        <div class="move-controls" aria-label="Mover canhão">
-          <button id="up" aria-label="Mover para cima">▲</button>
-          <button id="down" aria-label="Mover para baixo">▼</button>
+      <div id="bossHud" class="boss-hud" hidden><span>⚠ <b id="bossName">CHEFE</b></span><div><i id="bossFill"></i></div><strong id="bossHealth">0/0</strong></div>
+      <div id="powerHud" class="power-hud"><b>⚡ POWER-UPS</b><span id="powerStatus">Nenhum bônus ativo</span></div>
+      <div class="battle-grid">
+        <div class="arena-column">
+          <div class="arena-wrap">
+            <canvas id="arena" width="960" height="500" aria-label="Arena de defesa"></canvas>
+          </div>
+          <div class="threat-meter">
+            <span>Ritmo da onda</span>
+            <div><i id="threatFill"></i></div>
+            <b id="phase">Preparação</b>
+          </div>
+          <div class="stage-progress" aria-label="Progresso da fase">
+            <i id="stageProgress"></i>
+          </div>
         </div>
-        <button id="fire">FIRE <small>ESPAÇO</small></button>
+        <aside class="fire-rail" aria-label="Controle de disparo">
+          <small>DISPARO</small>
+          <button id="fire">FIRE <small>ESPAÇO</small></button>
+        </aside>
       </div>
+
       <section id="stageResult" class="stage-result" hidden aria-labelledby="resultTitle">
         <div class="result-card">
           <small id="resultSector">FASE CONCLUÍDA</small>
@@ -77,12 +95,48 @@
           <p id="resultMessage"></p>
           <div class="result-actions">
             <button id="nextStage">Próxima fase</button>
+            <button id="newCampaign" hidden>Nova campanha — fase 1</button>
             <button id="retryStage">Repetir fase</button>
             <button id="pauseCampaign">Pausar campanha</button>
           </div>
         </div>
       </section>
-      <p class="tip">Use ↑ e ↓ ou arraste o canhão. Toque ou segure FIRE para disparar.</p>
+      <p class="tip">Teclado: use ↑ e ↓. Mouse ou toque: clique e arraste na pista. Toque ou segure FIRE para disparar.</p>
+    </section>
+
+    <section id="tutorialOverlay" class="tutorial-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="tutorialTitle">
+      <div class="tutorial-card">
+        <div class="tutorial-progress"><i id="tutorialProgress"></i></div>
+        <div id="tutorialIcon" class="tutorial-icon">🎯</div>
+        <small id="tutorialStep">PASSO 1 DE 8</small>
+        <h2 id="tutorialTitle">Bem-vindo!</h2>
+        <p id="tutorialText"></p>
+        <div class="tutorial-actions"><button id="tutorialBack">Voltar</button><button id="tutorialSkip">Fechar</button><button id="tutorialNext">Próximo</button></div>
+      </div>
+    </section>
+
+    <section class="hall" aria-labelledby="hallTitle">
+      <header>
+        <div><small>CONQUISTAS E RECORDES</small><h2 id="hallTitle">🏆 Hall dos Defensores</h2></div>
+        <div class="hall-register"><input id="rankingName" maxlength="20" placeholder="Nome do jogador" aria-label="Nome no ranking"><button id="saveRanking">Registrar conquista atual</button><button id="restartCampaign">Nova campanha — fase 1</button></div>
+      </header>
+      <p id="careerSummary" class="career-summary">Complete a campanha para eternizar seu resultado.</p>
+      <div id="awards" class="awards" aria-label="Premiações"></div>
+      <label class="ranking-filter">Exibir ranking
+        <select id="rankingMode">
+          <option value="all">Todos os modos</option>
+          <option value="campaign">Campanha</option>
+          <option value="survival">Sobrevivência</option>
+          <option value="timed">Partida por tempo</option>
+        </select>
+      </label>
+      <div class="ranking-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Defensor</th><th>Modo</th><th>Pontos</th><th>Tela/Fase</th><th>Onda</th><th>Precisão</th><th>Pedras</th><th>Combo</th><th>Dificuldade</th><th>Data</th></tr></thead>
+          <tbody id="rankingBody"><tr><td colspan="11">Nenhum resultado registrado.</td></tr></tbody>
+        </table>
+      </div>
+      <p id="rankingMessage" class="ranking-message" aria-live="polite"></p>
     </section>
   </main>
   <script src="game.js"></script>

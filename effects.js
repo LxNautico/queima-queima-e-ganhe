@@ -89,7 +89,7 @@
     if (!precisionText || eventKey === lastEvent) return;
     lastEvent = eventKey;
 
-    if (/RETORNO INVÁLIDO|não tocou|não chegou/i.test(`${precisionText} ${statusText}`)) {
+    if (/RETORNO INVÁLIDO|RETORNO QUEIMADO|não tocou|não chegou/i.test(`${precisionText} ${statusText}`)) {
       replayClass(board, 'fx-error');
       vibrate(35);
       return;
