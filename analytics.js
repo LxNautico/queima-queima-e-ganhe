@@ -191,3 +191,48 @@ if (!document.querySelector('script[data-qqe-coach]')) {
   coachScript.dataset.qqeCoach = 'true';
   document.body.append(coachScript);
 }
+
+// Identificação permanente da autoria do jogo e do repositório oficial.
+(() => {
+  const author = 'Alex Alexandre Guedes Ramos';
+  const copyright = `Copyright © 2026 ${author}. Todos os direitos reservados.`;
+  const setMeta = (name, content) => {
+    let meta = document.head.querySelector(`meta[name="${name}"]`);
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = name;
+      document.head.append(meta);
+    }
+    meta.content = content;
+  };
+  setMeta('author', author);
+  setMeta('copyright', copyright);
+  if (document.querySelector('.creator-credit')) return;
+  const credit = document.createElement('footer');
+  credit.className = 'creator-credit';
+  credit.innerHTML = `© 2026 ${author} · <a href="https://github.com/LxNautico" rel="author">LxNautico</a> · Todos os direitos reservados.`;
+  Object.assign(credit.style, {
+    margin: '24px 0 6px',
+    textAlign: 'center',
+    color: '#6c5140',
+    fontSize: '.72rem'
+  });
+  const link = credit.querySelector('a');
+  link.style.color = '#8b3b28';
+  document.querySelector('main')?.append(credit);
+
+  if (!document.querySelector('.hub-link')) {
+    const hubLink = document.createElement('a');
+    hubLink.className = 'hub-link';
+    hubLink.href = './index.html';
+    hubLink.textContent = '← Central dos Jogos';
+    Object.assign(hubLink.style, {
+      display: 'inline-block',
+      marginBottom: '4px',
+      color: '#fff0b7',
+      fontSize: '.78rem',
+      fontWeight: 'bold'
+    });
+    document.querySelector('main')?.prepend(hubLink);
+  }
+})();
