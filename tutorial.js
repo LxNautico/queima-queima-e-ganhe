@@ -51,7 +51,7 @@
     #tutorialActions #tutorialSkip{background:transparent;color:#6c5140;text-decoration:underline}
     .tutorial-focus{position:relative!important;z-index:1005!important;outline:5px solid #ffcf4a!important;outline-offset:5px;box-shadow:0 0 0 10px rgba(230,80,42,.34),0 0 28px #ffcf4a!important;pointer-events:none!important}
     body.tutorial-open{overflow:hidden}
-    @media(max-width:600px){#tutorialCard{padding:19px 15px}#tutorialCard p{min-height:5.5em}.tutorial-focus{outline-width:3px!important;outline-offset:2px}}
+    @media(max-width:600px){#tutorialOverlay{width:100vw;max-width:100%;padding:6px;overflow:hidden}#tutorialCard{width:calc(100% - 8px);max-width:440px;padding:19px 15px}#tutorialCard h2,#tutorialCard p{overflow-wrap:anywhere}#tutorialCard p{min-height:5.5em}.tutorial-focus{outline-width:3px!important;outline-offset:2px}}
   `;
   document.head.append(style);
 

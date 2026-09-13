@@ -1,4 +1,4 @@
-const CACHE_NAME='universo-qq-v1';
+const CACHE_NAME='universo-qq-v2';
 const CORE_FILES=['/','/index.html','/QQeGanhe!.html','/analytics.js','/rooms.js','/sync.js','/tutorial.js','/effects.js','/achievements.js','/circuit.js','/coach.js','/community.js','/events.js','/rival.js','/shot-feedback.js','/quebra-quebra/index.html','/quebra-quebra/styles.css','/quebra-quebra/campaign.css','/quebra-quebra/game.js','/legal.css','/sobre.html','/privacidade.html','/termos.html','/contato.html','/manifest.webmanifest','/icons/icon-192.png','/icons/icon-512.png','/icons/universo-queima-queima.svg'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>Promise.allSettled(CORE_FILES.map(file=>cache.add(file)))));self.skipWaiting()});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
