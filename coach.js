@@ -3,6 +3,7 @@
   const panel=document.createElement('section');panel.id='coachPanel';panel.innerHTML=`
     <style>
       #coachPanel{margin:10px 0 14px;padding:10px 12px;border:2px solid #4d7d8e;border-radius:13px;background:linear-gradient(135deg,#eff9f5,#cee6df);color:#29434b;text-align:left}
+      #reset{margin:12px 0 2px;padding:7px 12px;border:1px solid #d08438;border-radius:999px;background:#fff2c8;color:#8f3f22;font-weight:800;text-decoration:none;box-shadow:0 0 0 0 #f2aa4b88;transition:transform .18s,box-shadow .18s}#reset:hover,#reset:focus-visible{transform:translateY(-1px);box-shadow:0 0 0 4px #f2aa4b55,0 3px 8px #8f3f2233;outline:0}
       #coachPanel header{display:flex;align-items:center;justify-content:space-between;gap:8px}#coachPanel h2{margin:0;font:700 1.05rem Georgia}#coachMode{padding:5px;border:1px solid #6c929d;border-radius:7px;background:#fff}
       #coachBubble{position:relative;margin:9px 0 7px;padding:9px 11px;border-radius:5px 11px 11px;background:#fff;box-shadow:0 2px 7px #0002;font-size:.8rem;line-height:1.4}#coachBubble:before{content:"";position:absolute;left:-7px;top:9px;border-width:7px 7px 7px 0;border-style:solid;border-color:transparent #fff transparent transparent}
       #coachHelp{display:flex;gap:6px}#coachQuestion{min-width:0;flex:1;padding:7px 9px;border:1px solid #7b9ca4;border-radius:8px}#coachAsk{padding:7px 11px;border:0;border-radius:8px;background:#294b5a;color:#fff;font-weight:800}
@@ -13,7 +14,23 @@
     <p id="coachBubble">Estou de olho na pista. Faça um lançamento e eu analiso o resultado sem revelar uma força exata.</p>
     <form id="coachHelp"><input id="coachQuestion" maxlength="100" placeholder="Pergunte ao Técnico QQ…" aria-label="Pergunta ao Técnico QQ"><button id="coachAsk">Perguntar</button></form>
     <div id="coachShortcuts"><button data-question="força">Força</button><button data-question="pisos">Pisos</button><button data-question="100 pontos">100 pontos</button><button data-question="circuito">Circuito</button></div>`;
-  const reference=document.querySelector('#challenge');reference.after(panel);
+  // Ações primeiro; o feedback técnico do lançamento vem integralmente antes do coach.
+  const reset=document.querySelector('#reset'),control=document.querySelector('.control'),challenge=document.querySelector('#challenge'),status=document.querySelector('#status');
+  if(control&&challenge)control.after(challenge);
+  if(challenge&&reset)challenge.after(reset);
+  (status||reset||challenge||precision).after(panel);
+  // Scripts extras carregam de forma independente. Mantemos a leitura do lançamento
+  // sempre acima do técnico, independentemente da ordem em que cada painel apareceu.
+  function arrangeLaunchFeedback(){
+    let anchor=reset;
+    ['nbackPanel','shotReview','precision','metrics','status','coachPanel'].forEach(id=>{
+      const item=document.querySelector(`#${id}`);
+      if(item&&anchor&&anchor.nextElementSibling!==item)anchor.after(item);
+      if(item)anchor=item;
+    });
+  }
+  arrangeLaunchFeedback();
+  new MutationObserver(arrangeLaunchFeedback).observe(game,{childList:true});
   const coachMode=panel.querySelector('#coachMode'),bubble=panel.querySelector('#coachBubble'),form=panel.querySelector('#coachHelp'),question=panel.querySelector('#coachQuestion');
   let lastCharge=0,lastResult='',launches=0,recentCharges=[];
   coachMode.value=localStorage.getItem('qqeCoachMode')||'occasional';

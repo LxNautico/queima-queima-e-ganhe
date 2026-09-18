@@ -2,6 +2,12 @@
   const STORAGE_KEY = 'qqeTutorialConcluidoV1';
   const steps = [
     {
+      target: '#mode',
+      icon: '🗺️',
+      title: 'Escolha seu modo',
+      text: 'Circuito traz 10 desafios; Partida tem 5 rodadas; Treino é livre; Rival virtual adiciona um adversário; Duelo local é para duas pessoas; e Mente em Chamas oferece N-Back e Dual-Back.'
+    },
+    {
       target: '#springBay',
       icon: '🌀',
       title: 'Prepare o impulso',
@@ -35,7 +41,7 @@
 
   const style = document.createElement('style');
   style.textContent = `
-    #tutorialHelp{margin:0 0 12px 7px;border:1px solid #c89143;border-radius:8px;padding:6px 10px;background:#fff6d9;color:#553a28;font-weight:bold}
+    #tutorialHelp,#tutorialTour{margin:0 0 12px 7px;border:1px solid #c89143;border-radius:8px;padding:6px 10px;background:#fff6d9;color:#553a28;font-weight:bold}#tutorialTour{background:#e9f3f7;border-color:#668d9c;color:#294b5a}
     #tutorialOverlay{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;background:rgba(10,20,29,.76);backdrop-filter:blur(2px)}
     #tutorialOverlay[hidden]{display:none}
     #tutorialCard{position:relative;z-index:1010;width:min(440px,100%);padding:24px;border:4px solid #c89143;border-radius:20px;background:#fff6d9;color:#38271d;box-shadow:0 20px 60px #0009;text-align:center}
@@ -60,6 +66,11 @@
   help.type = 'button';
   help.textContent = '❔ Como jogar';
   document.querySelector('#soundToggle').after(help);
+  const tour = document.createElement('button');
+  tour.id = 'tutorialTour';
+  tour.type = 'button';
+  tour.textContent = '🗺️ Tour pelo jogo';
+  help.after(tour);
 
   const overlay = document.createElement('div');
   overlay.id = 'tutorialOverlay';
@@ -90,6 +101,7 @@
   const skip = overlay.querySelector('#tutorialSkip');
   let current = 0;
   let highlighted = null;
+  let opener = help;
 
   const clearHighlight = () => {
     highlighted?.classList.remove('tutorial-focus');
@@ -114,7 +126,8 @@
     next.focus();
   };
 
-  const open = () => {
+  const open = (trigger = help) => {
+    opener = trigger;
     current = 0;
     overlay.hidden = false;
     document.body.classList.add('tutorial-open');
@@ -126,13 +139,14 @@
     overlay.hidden = true;
     document.body.classList.remove('tutorial-open');
     localStorage.setItem(STORAGE_KEY, '1');
-    help.focus();
+    opener.focus();
   };
 
   back.onclick = () => { if (current > 0) { current--; render(); } };
   next.onclick = () => { if (current < steps.length - 1) { current++; render(); } else close(); };
   skip.onclick = close;
-  help.onclick = open;
+  help.onclick = () => open(help);
+  tour.onclick = () => open(tour);
   document.addEventListener('keydown', event => {
     if (overlay.hidden) return;
     if (event.key === 'Escape') close();
@@ -140,5 +154,5 @@
     if (event.key === 'ArrowLeft' && current > 0) back.click();
   });
 
-  if (!localStorage.getItem(STORAGE_KEY)) setTimeout(open, 450);
+  if (!localStorage.getItem(STORAGE_KEY)) setTimeout(() => open(help), 450);
 })();

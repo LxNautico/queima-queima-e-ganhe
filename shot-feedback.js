@@ -3,7 +3,8 @@
   if(!board||!puck||!flick||!precision)return;
   const trail=document.createElement('canvas');trail.id='shotTrail';trail.setAttribute('aria-hidden','true');board.append(trail);
   const review=document.createElement('section');review.id='shotReview';review.hidden=true;review.setAttribute('aria-live','polite');review.innerHTML='<span id="shotGradeIcon">🎯</span><div><small>AVALIAÇÃO DO LANÇAMENTO</small><strong id="shotGrade">—</strong><p id="shotTip"></p></div>';
-  (document.querySelector('#metrics')||precision).after(review);
+  // A avaliação abre a área de feedback: retorno, métricas e status ficam antes do Técnico QQ.
+  (document.querySelector('#reset')||document.querySelector('#challenge')||precision).after(review);
   const style=document.createElement('style');style.textContent=`
     #shotTrail{position:absolute;z-index:3;inset:0;width:100%;height:100%;pointer-events:none;opacity:.8}
     #shotReview{display:grid;grid-template-columns:42px 1fr;align-items:center;gap:10px;width:min(520px,100%);margin:7px auto 10px;padding:8px 12px;border:1px solid #c89143;border-radius:11px;background:#fff9e8;color:#503522;text-align:left;animation:shotReviewIn .25s ease-out}

@@ -147,7 +147,7 @@ if (!document.querySelector('script[data-qqe-community]')) {
 // Carrega o modo de progressão do Circuito Queima-Queima.
 if (!document.querySelector('script[data-qqe-circuit]')) {
   const circuitScript = document.createElement('script');
-  circuitScript.src = 'circuit.js?v=20260912-1';
+  circuitScript.src = 'circuit.js?v=20260917-2';
   circuitScript.dataset.qqeCircuit = 'true';
   document.body.append(circuitScript);
 }
@@ -155,7 +155,7 @@ if (!document.querySelector('script[data-qqe-circuit]')) {
 // Carrega o rastro e a avaliação técnica de cada lançamento.
 if (!document.querySelector('script[data-qqe-shot-feedback]')) {
   const feedbackScript = document.createElement('script');
-  feedbackScript.src = 'shot-feedback.js?v=20260912-1';
+  feedbackScript.src = 'shot-feedback.js?v=20260917-2';
   feedbackScript.dataset.qqeShotFeedback = 'true';
   document.body.append(feedbackScript);
 }
@@ -163,7 +163,7 @@ if (!document.querySelector('script[data-qqe-shot-feedback]')) {
 // Carrega medalhas, brasas e recompensas cosméticas.
 if (!document.querySelector('script[data-qqe-achievements]')) {
   const achievementScript = document.createElement('script');
-  achievementScript.src = 'achievements.js?v=20260912-1';
+  achievementScript.src = 'achievements.js?v=20260917-1';
   achievementScript.dataset.qqeAchievements = 'true';
   document.body.append(achievementScript);
 }
@@ -187,9 +187,17 @@ if (!document.querySelector('script[data-qqe-events]')) {
 // Carrega o Técnico QQ, assistente local de dicas e ajuda.
 if (!document.querySelector('script[data-qqe-coach]')) {
   const coachScript = document.createElement('script');
-  coachScript.src = 'coach.js?v=20260912-1';
+  coachScript.src = 'coach.js?v=20260917-5';
   coachScript.dataset.qqeCoach = 'true';
   document.body.append(coachScript);
+}
+
+// Carrega o modo opcional de memória de trabalho Mente em Chamas.
+if (!document.querySelector('script[data-qqe-nback]')) {
+  const nbackScript = document.createElement('script');
+  nbackScript.src = 'nback.js?v=20260917-3';
+  nbackScript.dataset.qqeNback = 'true';
+  document.body.append(nbackScript);
 }
 
 // Identificação permanente da autoria do jogo e do repositório oficial.
