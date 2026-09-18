@@ -147,7 +147,7 @@ if (!document.querySelector('script[data-qqe-community]')) {
 // Carrega o modo de progressão do Circuito Queima-Queima.
 if (!document.querySelector('script[data-qqe-circuit]')) {
   const circuitScript = document.createElement('script');
-  circuitScript.src = 'circuit.js?v=20260917-2';
+  circuitScript.src = 'circuit.js?v=20260918-3';
   circuitScript.dataset.qqeCircuit = 'true';
   document.body.append(circuitScript);
 }
@@ -195,7 +195,7 @@ if (!document.querySelector('script[data-qqe-coach]')) {
 // Carrega o modo opcional de memória de trabalho Mente em Chamas.
 if (!document.querySelector('script[data-qqe-nback]')) {
   const nbackScript = document.createElement('script');
-  nbackScript.src = 'nback.js?v=20260917-3';
+  nbackScript.src = 'nback.js?v=20260918-1';
   nbackScript.dataset.qqeNback = 'true';
   document.body.append(nbackScript);
 }
