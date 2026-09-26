@@ -5,81 +5,86 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
   <meta name="author" content="Alex Alexandre Guedes Ramos">
   <meta name="copyright" content="Copyright © 2026 Alex Alexandre Guedes Ramos. Todos os direitos reservados.">
-  <title>Quebra-Quebra: Fogo Cruzado</title>
+  <title data-i18n="cross.meta">Quebra-Quebra: Fogo Cruzado</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="campaign.css">
-  <style>.hub-link{display:inline-block;margin-bottom:8px;color:#ffd064;font-size:.75rem;font-weight:bold;text-decoration:none}.hub-link:hover{text-decoration:underline}.creator-credit{margin:24px 0 6px;text-align:center;color:#8fa8b6;font-size:.7rem}.creator-credit a{color:#ffc34d}</style>
+  <style>.hub-link{display:inline-block;margin-bottom:8px;color:#ffd064;font-size:.75rem;font-weight:bold;text-decoration:none}.hub-link:hover{text-decoration:underline}.creator-credit{margin:24px 0 6px;text-align:center;color:#8fa8b6;font-size:.7rem}.creator-credit a{color:#ffc34d}.language-picker{display:flex;justify-content:center;align-items:center;gap:7px;margin:0 0 8px;color:#d7e5ec;font-size:.72rem;font-weight:800}.language-picker select{padding:6px 9px;border:1px solid #70cce9;border-radius:8px;background:#102f42;color:#fff;font-weight:800}.result-grid i{font-style:normal}</style>
 </head>
 <body>
   <main>
     <header class="hero">
-      <a class="hub-link" href="../index.html">← Central dos Jogos</a>
-      <p class="eyebrow">UNIVERSO QUEIMA-QUEIMA</p>
-      <h1>Quebra-Quebra <span>Fogo Cruzado</span></h1>
-      <p>Defenda o minicanhão, destrua as pedras na ordem e sobreviva às ondas.</p>
+      <a class="hub-link" href="../index.html" data-i18n="cross.back">← Central dos Jogos</a>
+      <label class="language-picker"><span data-i18n="language.label">Idioma</span><select id="languageSelect"><option value="pt-BR">Português</option><option value="en">English</option><option value="es">Español</option></select></label>
+      <p class="eyebrow" data-i18n="cross.universe">UNIVERSO QUEIMA-QUEIMA</p>
+      <h1><span data-i18n="cross.title" style="display:initial;color:inherit;font:inherit;letter-spacing:inherit;text-shadow:inherit">Quebra-Quebra</span> <span data-i18n="cross.subtitle">Fogo Cruzado</span></h1>
+      <p data-i18n="cross.lead">Defenda o minicanhão, destrua as pedras na ordem e sobreviva às ondas.</p>
     </header>
 
     <section class="game-shell">
       <div class="topbar">
-        <label>Modo
+        <label><span data-i18n="cross.mode">Modo</span>
           <select id="gameMode">
-            <option value="campaign">Campanha</option>
-            <option value="survival">Sobrevivência</option>
-            <option value="timed">Partida por tempo</option>
-            <option value="training">Treino livre</option>
+            <option value="campaign" data-i18n="cross.mode.campaign">Campanha</option>
+            <option value="survival" data-i18n="cross.mode.survival">Sobrevivência</option>
+            <option value="timed" data-i18n="cross.mode.timed">Partida por tempo</option>
+            <option value="training" data-i18n="cross.mode.training">Treino livre</option>
           </select>
         </label>
-        <label>Dificuldade
+        <label><span data-i18n="cross.difficulty">Dificuldade</span>
           <select id="difficulty">
-            <option value="easy">Fácil</option>
-            <option value="medium">Médio</option>
-            <option value="hard">Difícil</option>
+            <option value="easy" data-i18n="cross.easy">Fácil</option>
+            <option value="medium" data-i18n="cross.medium">Médio</option>
+            <option value="hard" data-i18n="cross.hard">Difícil</option>
           </select>
         </label>
-        <label id="arcadeSceneLabel" hidden>Tela
+        <label id="arcadeSceneLabel" hidden><span data-i18n="cross.screen">Tela</span>
           <select id="arcadeScene" aria-label="Tela visual dos modos alternativos"></select>
         </label>
-        <button id="start">Iniciar defesa</button>
-        <button id="sound" aria-pressed="true">🔊 Som</button>
-        <button id="openTutorial">? Tutorial</button>
+        <button id="start" data-i18n="cross.start">Iniciar defesa</button>
+        <button id="sound" aria-pressed="true" data-i18n="cross.sound">🔊 Som</button>
+        <button id="openTutorial" data-i18n="cross.tutorial">? Tutorial</button>
       </div>
       <div id="survivalActions" class="survival-actions" hidden>
-        <button id="pauseSurvival">Pausar e continuar depois</button>
-        <button id="stopSurvival">Encerrar sobrevivência</button>
+        <button id="pauseSurvival" data-i18n="cross.pauseLater">Pausar e continuar depois</button>
+        <button id="stopSurvival" data-i18n="cross.stopSurvival">Encerrar sobrevivência</button>
+      </div>
+      <div id="campaignActions" class="campaign-actions">
+        <button id="pauseCampaignRun" disabled data-i18n="cross.pause">Pausar partida</button>
+        <button id="stopCampaignRun" disabled data-i18n="cross.stop">Encerrar jogada</button>
       </div>
 
       <div class="hud" aria-live="polite">
-        <div><small>PONTOS</small><strong id="score">0</strong></div>
-        <div><small>PRECISÃO</small><strong id="accuracy">100%</strong></div>
-        <div><small>COMBO</small><strong id="combo">x1</strong></div>
-        <div><small>FASE</small><strong id="stage">1/100</strong></div>
-        <div><small>TEMPO</small><strong id="stageTime">25s</strong></div>
-        <div class="health"><small>ENERGIA</small><strong id="health">♥ ♥ ♥</strong></div>
+        <div><small data-i18n="cross.points">PONTOS</small><strong id="score">0</strong></div>
+        <div><small data-i18n="cross.accuracy">PRECISÃO</small><strong id="accuracy">100%</strong></div>
+        <div><small data-i18n="cross.combo">COMBO</small><strong id="combo">x1</strong></div>
+        <div><small data-i18n="cross.stage">FASE</small><strong id="stage">1/100</strong></div>
+        <div><small data-i18n="cross.time">TEMPO</small><strong id="stageTime">25s</strong></div>
+        <div class="health"><small data-i18n="cross.energy">ENERGIA</small><strong id="health">♥ ♥ ♥</strong></div>
       </div>
 
       <div class="arena-info">
         <div class="scene-label"><small id="sectorName">SETOR 1</small><b id="sceneName">Bancada do Inventor</b></div>
-        <div id="announcement">Escolha a dificuldade e inicie a defesa.</div>
+        <div id="announcement" data-i18n="cross.choose">Escolha a dificuldade e inicie a defesa.</div>
       </div>
       <div id="bossHud" class="boss-hud" hidden><span>⚠ <b id="bossName">CHEFE</b></span><div><i id="bossFill"></i></div><strong id="bossHealth">0/0</strong></div>
-      <div id="powerHud" class="power-hud"><b>⚡ POWER-UPS</b><span id="powerStatus">Nenhum bônus ativo</span></div>
+      <div id="powerHud" class="power-hud"><b>⚡ POWER-UPS</b><span id="powerStatus" data-i18n="cross.noPower">Nenhum bônus ativo</span></div>
       <div class="battle-grid">
         <div class="arena-column">
           <div class="arena-wrap">
             <canvas id="arena" width="960" height="500" aria-label="Arena de defesa"></canvas>
           </div>
           <div class="threat-meter">
-            <span>Ritmo da onda</span>
+            <span data-i18n="cross.wavePace">Ritmo da onda</span>
             <div><i id="threatFill"></i></div>
-            <b id="phase">Preparação</b>
+            <b id="phase" data-i18n="cross.preparation">Preparação</b>
           </div>
           <div class="stage-progress" aria-label="Progresso da fase">
             <i id="stageProgress"></i>
           </div>
         </div>
         <aside class="fire-rail" aria-label="Controle de disparo">
-          <small>DISPARO</small>
-          <button id="fire">FIRE <small>ESPAÇO</small></button>
+          <small data-i18n="cross.shot">DISPARO</small>
+          <button id="fire">FIRE <small data-i18n="cross.space">ESPAÇO</small></button>
         </aside>
       </div>
 
@@ -89,23 +94,23 @@
           <h2 id="resultTitle">Defesa concluída!</h2>
           <div id="resultMedal" class="result-medal">🥇</div>
           <div class="result-grid">
-            <span>Pontos da fase <b id="resultPoints">0</b></span>
-            <span>Precisão <b id="resultAccuracy">0%</b></span>
-            <span>Pedras destruídas <b id="resultDestroyed">0</b></span>
-            <span>Maior combo <b id="resultCombo">x1</b></span>
-            <span>Vidas restantes <b id="resultHealth">3</b></span>
-            <span>Bônus <b id="resultBonus">0</b></span>
+            <span><i data-i18n="cross.result.stagePoints">Pontos da fase</i> <b id="resultPoints">0</b></span>
+            <span><i data-i18n="cross.result.accuracy">Precisão</i> <b id="resultAccuracy">0%</b></span>
+            <span><i data-i18n="cross.result.destroyed">Pedras destruídas</i> <b id="resultDestroyed">0</b></span>
+            <span><i data-i18n="cross.result.combo">Maior combo</i> <b id="resultCombo">x1</b></span>
+            <span><i data-i18n="cross.result.health">Vidas restantes</i> <b id="resultHealth">3</b></span>
+            <span><i data-i18n="cross.result.bonus">Bônus</i> <b id="resultBonus">0</b></span>
           </div>
           <p id="resultMessage"></p>
           <div class="result-actions">
-            <button id="nextStage">Próxima fase</button>
-            <button id="newCampaign" hidden>Nova campanha — fase 1</button>
-            <button id="retryStage">Repetir fase</button>
-            <button id="pauseCampaign">Pausar campanha</button>
+            <button id="nextStage" data-i18n="cross.next">Próxima fase</button>
+            <button id="newCampaign" hidden data-i18n="cross.newCampaign">Nova campanha — fase 1</button>
+            <button id="retryStage" data-i18n="cross.retry">Repetir fase</button>
+            <button id="pauseCampaign" data-i18n="cross.pauseCampaign">Pausar campanha</button>
           </div>
         </div>
       </section>
-      <p class="tip">Teclado: use ↑ e ↓. Mouse ou toque: clique e arraste na pista. Toque ou segure FIRE para disparar.</p>
+      <p class="tip" data-i18n="cross.tip">Teclado: use ↑ e ↓. Mouse ou toque: clique e arraste na pista. Toque ou segure FIRE para disparar.</p>
     </section>
 
     <section id="tutorialOverlay" class="tutorial-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="tutorialTitle">
@@ -115,29 +120,29 @@
         <small id="tutorialStep">PASSO 1 DE 8</small>
         <h2 id="tutorialTitle">Bem-vindo!</h2>
         <p id="tutorialText"></p>
-        <div class="tutorial-actions"><button id="tutorialBack">Voltar</button><button id="tutorialSkip">Fechar</button><button id="tutorialNext">Próximo</button></div>
+        <div class="tutorial-actions"><button id="tutorialBack" data-i18n="cross.backButton">Voltar</button><button id="tutorialSkip" data-i18n="cross.close">Fechar</button><button id="tutorialNext" data-i18n="cross.nextButton">Próximo</button></div>
       </div>
     </section>
 
     <section class="hall" aria-labelledby="hallTitle">
       <header>
-        <div><small>CONQUISTAS E RECORDES</small><h2 id="hallTitle">🏆 Hall dos Defensores</h2></div>
-        <div class="hall-register"><input id="rankingName" maxlength="20" placeholder="Nome do jogador" aria-label="Nome no ranking"><button id="saveRanking">Registrar conquista atual</button><button id="restartCampaign">Nova campanha — fase 1</button></div>
+        <div><small data-i18n="cross.records">CONQUISTAS E RECORDES</small><h2 id="hallTitle" data-i18n="cross.hall">🏆 Hall dos Defensores</h2></div>
+        <div class="hall-register"><input id="rankingName" maxlength="20" placeholder="Nome do jogador" aria-label="Nome no ranking" data-i18n-placeholder="cross.playerName"><button id="saveRanking" data-i18n="cross.saveRank">Registrar conquista atual</button><button id="restartCampaign" data-i18n="cross.newCampaign">Nova campanha — fase 1</button></div>
       </header>
-      <p id="careerSummary" class="career-summary">Complete a campanha para eternizar seu resultado.</p>
+      <p id="careerSummary" class="career-summary" data-i18n="cross.career">Complete a campanha para eternizar seu resultado.</p>
       <div id="awards" class="awards" aria-label="Premiações"></div>
-      <label class="ranking-filter">Exibir ranking
+      <label class="ranking-filter"><span data-i18n="cross.showRanking">Exibir ranking</span>
         <select id="rankingMode">
-          <option value="all">Todos os modos</option>
-          <option value="campaign">Campanha</option>
-          <option value="survival">Sobrevivência</option>
-          <option value="timed">Partida por tempo</option>
+          <option value="all" data-i18n="cross.allModes">Todos os modos</option>
+          <option value="campaign" data-i18n="cross.mode.campaign">Campanha</option>
+          <option value="survival" data-i18n="cross.mode.survival">Sobrevivência</option>
+          <option value="timed" data-i18n="cross.mode.timed">Partida por tempo</option>
         </select>
       </label>
       <div class="ranking-wrap">
         <table>
-          <thead><tr><th>#</th><th>Defensor</th><th>Modo</th><th>Pontos</th><th>Tela/Fase</th><th>Onda</th><th>Precisão</th><th>Pedras</th><th>Combo</th><th>Dificuldade</th><th>Data</th></tr></thead>
-          <tbody id="rankingBody"><tr><td colspan="11">Nenhum resultado registrado.</td></tr></tbody>
+          <thead><tr><th>#</th><th data-i18n="cross.table.defender">Defensor</th><th data-i18n="cross.table.mode">Modo</th><th data-i18n="cross.table.points">Pontos</th><th data-i18n="cross.table.screen">Tela/Fase</th><th data-i18n="cross.table.wave">Onda</th><th data-i18n="cross.table.accuracy">Precisão</th><th data-i18n="cross.table.rocks">Pedras</th><th data-i18n="cross.table.combo">Combo</th><th data-i18n="cross.table.difficulty">Dificuldade</th><th data-i18n="cross.table.date">Data</th></tr></thead>
+          <tbody id="rankingBody"><tr><td colspan="11" data-i18n="cross.none">Nenhum resultado registrado.</td></tr></tbody>
         </table>
       </div>
       <p id="rankingMessage" class="ranking-message" aria-live="polite"></p>
@@ -147,6 +152,12 @@
       <a href="../privacidade.html">Privacidade</a> · <a href="../termos.html">Termos</a> · <a href="../contato.html">Contato</a>
     </footer>
   </main>
+  <script src="../locales/pt-BR.js"></script>
+  <script src="../locales/en.js"></script>
+  <script src="../locales/quebra-pt-BR.js"></script>
+  <script src="../locales/quebra-en.js"></script>
+  <script src="../locales/quebra-es.js"></script>
+  <script src="../i18n.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
   "id": "/",
   "name": "Universo Queima-Queima",
   "short_name": "Queima-Queima",
-  "description": "Queima-Queima e Ganhe e Quebra-Quebra: Fogo Cruzado em uma só arena.",
+  "description": "Três jogos em uma só arena: precisão, ação e aprendizado sobre mineração e criptografia.",
   "lang": "pt-BR",
   "start_url": "/?source=pwa",
   "scope": "/",
@@ -18,6 +18,7 @@
   ],
   "shortcuts": [
     {"name":"Queima-Queima e Ganhe","short_name":"Queima-Queima","url":"/QQeGanhe!.html?source=pwa","icons":[{"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml"}]},
-    {"name":"Quebra-Quebra: Fogo Cruzado","short_name":"Quebra-Quebra","url":"/quebra-quebra/index.html?source=pwa","icons":[{"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml"}]}
+    {"name":"Quebra-Quebra: Fogo Cruzado","short_name":"Quebra-Quebra","url":"/quebra-quebra/index.html?source=pwa","icons":[{"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml"}]},
+    {"name":"JogoBitcoin: Mineração Educativa","short_name":"JogoBitcoin","url":"/jogobitcoin/index.html?source=pwa","icons":[{"src":"/icons/universo-queima-queima.svg","sizes":"any","type":"image/svg+xml"}]}
   ]
 }

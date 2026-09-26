@@ -62,6 +62,10 @@
     }));
   };
   render();
+  addEventListener('qq-language-change', () => {
+    render();
+    requestAnimationFrame(() => window.qqPrecisionI18n?.apply?.(panel));
+  });
 
   let armed = false;
   let lastCharge = 0;
@@ -129,11 +133,20 @@
     subtree: true, childList: true, characterData: true
   });
   panel.querySelector('#clearBalance').onclick = () => {
-    if (!confirm('Apagar todas as estatísticas locais de balanceamento?')) return;
+    const message=window.qqPrecisionI18n?.translateValue?.('Apagar todas as estatísticas locais de balanceamento?')||'Apagar todas as estatísticas locais de balanceamento?';
+    if (!confirm(message)) return;
     stats = { wood: empty(), glass: empty(), rubber: empty() };
     localStorage.removeItem(KEY);
     render();
   };
+})();
+
+// Carrega a internacionalização do Queima-Queima depois dos módulos da partida.
+(() => {
+  const locale=document.createElement('script');
+  locale.src='locales/precision-en.js';
+  locale.onload=()=>{const spanish=document.createElement('script');spanish.src='locales/precision-es.js';spanish.onload=()=>{const engine=document.createElement('script');engine.src='precision-i18n.js';document.head.append(engine)};document.head.append(spanish)};
+  document.head.append(locale);
 })();
 
 // Carrega a área de avaliações depois dos painéis de estatísticas.

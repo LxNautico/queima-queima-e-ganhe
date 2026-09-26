@@ -27,4 +27,5 @@
   mode.addEventListener('change',()=>{panel.hidden=mode.value!=='nback';if(mode.value==='nback')start()});
   resetButton.addEventListener('click',()=>setTimeout(()=>{if(mode.value==='nback')start()},0));
   const originalSetup=globalThis.setup;if(typeof originalSetup==='function'){globalThis.setup=function(){originalSetup();renderRound()}}
+  addEventListener('qq-language-change',()=>{if(mode.value==='nback')renderRound();requestAnimationFrame(()=>window.qqPrecisionI18n?.apply?.(panel))});
 })();

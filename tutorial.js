@@ -155,4 +155,8 @@
   });
 
   if (!localStorage.getItem(STORAGE_KEY)) setTimeout(() => open(help), 450);
+  addEventListener('qq-language-change', () => {
+    if (!overlay.hidden) render();
+    requestAnimationFrame(() => window.qqPrecisionI18n?.apply?.());
+  });
 })();
