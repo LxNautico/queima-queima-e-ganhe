@@ -1,31 +1,33 @@
 # Universo Queima-Queima
 
-Projeto independente que reúne três jogos gratuitos em uma única PWA responsiva para computador e celular.
+Projeto independente que reúne quatro jogos gratuitos em uma única PWA responsiva para computador e celular.
 
 ## Jogos
 
 - **Queima-Queima e Ganhe:** precisão, controle de força, pisos, circuito, duelos, ranking e desafios N-back.
 - **Quebra-Quebra: Fogo Cruzado:** ação com minicanhão, modos livre e por tempo, campanha de 100 fases, chefes, bônus e conquistas.
 - **JogoBitcoin: Mineração Educativa:** 100 blocos com desafios de criptografia, ferramentas de decodificação, blockchain visual, enciclopédia, tutor, carteira fictícia e conquistas.
+- **Rebate!:** tênis de mesa com oito personagens, partidas rápidas ou em sets, Arena, torneio, Copa Mundial, desafios e ranking local.
 
 O JogoBitcoin é uma experiência educativa. Moedas, mineração, carteira, rendimentos e recompensas são fictícios e não representam investimento, mineração real ou promessa de ganho.
 
 ## Idiomas
 
-A interface principal e os recursos dos jogos estão disponíveis em:
+A interface principal, os três jogos anteriores e o guia editorial estão disponíveis em:
 
 - Português do Brasil
 - Inglês
 - Espanhol
 
-O guia editorial também possui páginas estáticas próprias nos três idiomas, com URLs canônicas e marcações `hreflang`.
+O Rebate! está integrado inicialmente em português do Brasil. Sua tradução interna para inglês e espanhol é uma etapa separada; o cartão dele na central já acompanha o idioma selecionado. O guia editorial possui páginas estáticas próprias nos três idiomas, com URLs canônicas e marcações `hreflang`.
 
 ## Conteúdo e navegação
 
-- `index.html`: central dos três jogos.
+- `index.html`: central dos quatro jogos.
 - `QQeGanhe!.html`: Queima-Queima e Ganhe.
 - `quebra-quebra/`: Quebra-Quebra: Fogo Cruzado.
 - `jogobitcoin/`: JogoBitcoin.
+- `rebate/`: Rebate!.
 - `guia.html`, `guide.html` e `guia-es.html`: guia original dos jogos e do aprendizado.
 - `sobre.html`, `privacidade.html`, `termos.html` e `contato.html`: páginas institucionais.
 - `manifest.webmanifest`, `pwa.js` e `sw.js`: instalação e funcionamento como PWA.

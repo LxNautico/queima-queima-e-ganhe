@@ -16,13 +16,34 @@
   };
   const data=(isSpanish?spanish:shared)[document.body.dataset.legalPage],main=document.querySelector('main');
   if(!data||!main)return;
+  if(document.body.dataset.legalPage==='privacy')data[1]=isSpanish?'ACTUALIZADA EL 15 DE OCTUBRE DE 2026':'UPDATED OCTOBER 15, 2026';
+  if(document.body.dataset.legalPage==='terms')data[1]=isSpanish?'ACTUALIZADOS EL 15 DE OCTUBRE DE 2026':'UPDATED OCTOBER 15, 2026';
   if(document.body.dataset.legalPage==='about'){
     const origin=isSpanish
       ? '<h2>Cómo nació el Universo Queima-Queima</h2><p>El proyecto se remonta a la infancia de su creador. A los diez años, cuando solía jugar con juegos de botones y damas, Alex imaginó una forma de combinar elementos de ambas experiencias en un tablero propio. La idea era sencilla y desafiante: dar un golpecito a un botón, hacerlo llegar a la pared final y sumar puntos según la casilla donde se detuviera durante el regreso. Así nació el concepto de <strong>Queima-Queima y Gana</strong>, muchos años antes de convertirse en un juego digital.</p><p>Ya adulto, Alex transformó aquel recuerdo en un juego funcional. Ver cómo la antigua idea adquiría movimiento, reglas e identidad abrió el camino a nuevas experiencias creadas con el mismo deseo de experimentar. De esa evolución surgió <strong>Quebra-Quebra: Fuego Cruzado</strong>, que amplió la base creativa del proyecto para explorar acción, orden, supervivencia y una campaña más extensa.</p><p><strong>JogoBitcoin</strong> había sido creado antes que los otros dos como un proyecto independiente y más complejo, aunque todavía no tenía un lugar definido. Cuando el Universo Queima-Queima tomó forma, quedó claro que también pertenecía a ese espacio. Lo que conecta los tres juegos no es un único tema, sino una misma historia: ideas antiguas y nuevas transformadas en experiencias originales de precisión, acción y aprendizaje. Por eso, el Universo Queima-Queima es el hogar de los tres juegos y permanece abierto a nuevas creaciones en el futuro.</p>'
       : '<h2>How the Queima-Queima Universe began</h2><p>The project traces its origin to its creator\'s childhood. At the age of ten, while often playing button games and checkers, Alex imagined combining elements of both experiences on a board of his own. The idea was simple and challenging: flick a button, make it reach the final wall, and score according to the square where it stopped on its return. This was the first concept of <strong>Queima-Queima and Win</strong>, many years before it became a digital game.</p><p>As an adult, Alex turned that childhood memory into a working game. Seeing the old idea gain movement, rules, and an identity opened the way for new experiences inspired by the same desire to experiment. This evolution led to <strong>Quebra-Quebra: Crossfire</strong>, which expanded the project\'s creative foundation into action, ordered targets, survival, and a larger campaign.</p><p><strong>JogoBitcoin</strong> had been created before the other two as a more complex independent project, but it did not yet have a defined home. Once the Queima-Queima Universe took shape, it became clear that this game belonged there too. What connects the three games is not a single theme, but a shared story: old and new ideas transformed into original experiences of accuracy, action, and learning. The Queima-Queima Universe is therefore the home of all three games — and remains open to new creations in the future.</p>';
     const firstGame=isSpanish?'<h2>Queima-Queima y Gana</h2>':'<h2>Queima-Queima and Win</h2>';
     data[3]=data[3].replace(firstGame,origin+firstGame);
+    const missionHeading=isSpanish?'<h2>Misión del proyecto</h2>':'<h2>Project mission</h2>';
+    const rebateSection=isSpanish
+      ? '<h2>Rebate!</h2><p>Un juego de tenis de mesa con ocho personajes, rivales de estilos propios, devoluciones dirigidas, torneos, desafíos de Arena y una Copa Mundial.</p>'
+      : '<h2>Rebate!</h2><p>A table tennis game with eight characters, distinct rivals, aimed returns, tournaments, Arena challenges, and a World Cup.</p>';
+    data[3]=data[3].replace(missionHeading,rebateSection+missionHeading);
   }
+  data[3]=data[3]
+    .replaceAll('its three games','its four games')
+    .replaceAll('the three games','the four games')
+    .replaceAll('all three games','all four games')
+    .replaceAll('connects the three games','connects the four games')
+    .replaceAll('home of all three games','home of all four games')
+    .replaceAll('sus tres juegos','sus cuatro juegos')
+    .replaceAll('los tres juegos','los cuatro juegos')
+    .replaceAll('conecta los tres juegos','conecta los cuatro juegos')
+    .replaceAll('hogar de los tres juegos','hogar de los cuatro juegos')
+    .replaceAll('accuracy, action, and learning','accuracy, action, strategy, and learning')
+    .replaceAll('precisión, acción y aprendizaje','precisión, acción, estrategia y aprendizaje')
+    .replace('This data can be removed by clearing the site\'s browser data.','Rebate! also stores character choices, tournaments, World Cup progress, challenges, unlocked courts, and a local ranking. This data can be removed by clearing the site\'s browser data.')
+    .replace('Estos datos pueden eliminarse al borrar los datos del sitio.','Rebate! también guarda elecciones de personajes, torneos, progreso de la Copa Mundial, desafíos, mesas desbloqueadas y una clasificación local. Estos datos pueden eliminarse al borrar los datos del sitio.');
   document.documentElement.lang=isSpanish?'es':'en';document.title=data[0];
   main.innerHTML=`<a class="back" href="./index.html">← ${isSpanish?'Central de juegos':'Game Hub'}</a><article class="page"><p class="eyebrow">${data[1]}</p><h1>${data[2]}</h1>${data[3]}<nav class="links">${data[4].map(([label,href])=>`<a href="./${href}">${label}</a>`).join('')}</nav></article><footer>© 2026 Alex Alexandre Guedes Ramos · ${isSpanish?'Todos los derechos reservados.':'All rights reserved.'}</footer>`;
 })();
