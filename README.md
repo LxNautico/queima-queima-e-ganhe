@@ -13,13 +13,13 @@ O JogoBitcoin é uma experiência educativa. Moedas, mineração, carteira, rend
 
 ## Idiomas
 
-A interface principal, os três jogos anteriores e o guia editorial estão disponíveis em:
+A interface principal, os quatro jogos e o guia editorial estão disponíveis em:
 
 - Português do Brasil
 - Inglês
 - Espanhol
 
-O Rebate! está integrado inicialmente em português do Brasil. Sua tradução interna para inglês e espanhol é uma etapa separada; o cartão dele na central já acompanha o idioma selecionado. O guia editorial possui páginas estáticas próprias nos três idiomas, com URLs canônicas e marcações `hreflang`.
+O Rebate! respeita o idioma escolhido na central e também oferece um seletor próprio dentro do jogo. O guia editorial possui páginas estáticas próprias nos três idiomas, com URLs canônicas e marcações `hreflang`.
 
 ## Conteúdo e navegação
 
